@@ -23,6 +23,7 @@ class TrackerBalancedLoss:
         self.mo = mo
         self.__step = 1
         self.name = name
+        self.epoch_losses = []
 
     def __call__(
         self, 
@@ -57,6 +58,7 @@ class TrackerBalancedLoss:
             loss += _loss
         if self.mo is not None:
             self.mo.update_metrics(metric_value_dict=_metric_value_dict)
+        self.epoch_losses.append(loss.item())
         out_loss = torch.mean(loss)
         self.__step += 1
         return out_loss
