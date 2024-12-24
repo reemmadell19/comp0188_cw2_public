@@ -23,7 +23,6 @@ class TrackerBalancedLoss:
         self.mo = mo
         self.__step = 1
         self.name = name
-        self.epoch_losses = []
 
     def __call__(
         self, 
@@ -61,11 +60,3 @@ class TrackerBalancedLoss:
         out_loss = torch.mean(loss)
         self.__step += 1
         return out_loss
-   def log_epoch_loss(self, epoch_loss: float):
-        """
-        Log the average loss for the epoch.
-
-        Args:
-            epoch_loss (float): Average loss for the epoch.
-        """
-        self.epoch_losses.append(epoch_loss)
