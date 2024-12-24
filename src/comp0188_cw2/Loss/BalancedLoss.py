@@ -58,7 +58,14 @@ class TrackerBalancedLoss:
             loss += _loss
         if self.mo is not None:
             self.mo.update_metrics(metric_value_dict=_metric_value_dict)
-        self.epoch_losses.append(loss.item())
         out_loss = torch.mean(loss)
         self.__step += 1
         return out_loss
+   def log_epoch_loss(self, epoch_loss: float):
+        """
+        Log the average loss for the epoch.
+
+        Args:
+            epoch_loss (float): Average loss for the epoch.
+        """
+        self.epoch_losses.append(epoch_loss)
